@@ -49,8 +49,6 @@ $("#setting_notifications").textContent = notificationsOn ? "On" : "Off";
   } else {
     $("#setting_temperature").textContent = "This is not a number, please select a valid number for your temperature";
   }
-  //TODO:: Validate the temperature by checking the range and if it's a number
-  //TODO:: Display an error if not valid
 
   evt.preventDefault();
 };
