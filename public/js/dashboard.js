@@ -3,7 +3,7 @@
 const $ = (selector) => document.querySelector(selector);
 
 const postalRegEx =
-  /^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z]\d$/i;
+  /^[ABCDEFGHIJKLMNOPQRSTUVWXY]\d[ABCDEFGHIJKLMNOPQRSTUVWXY][ -]?\d[ABCDEFGHIJKLMNOPQRSTUVWXY]\d$/i;
 
 const onReset = (evt) => {
   $("#notifications").checked = true;
@@ -15,15 +15,12 @@ const onReset = (evt) => {
 };
 
 const onSubmit = (evt) => {
-  //TODO::Reset any errors before submitting
 
-  //TODO:: Set notifications since it doesn't need to be validated
   let notificationsOn = $("#notifications").checked;
 
 $("#setting_notifications").textContent = notificationsOn ? "On" : "Off";
 
 
-  //TODO:: Set lighting mode with a for loop since it doesn't need to be validated
   let lightingModeOptions = document.querySelectorAll("[name='lighting_mode']");
 
   for (let i = 0; i < lightingModeOptions.length; i++){
@@ -32,18 +29,26 @@ $("#setting_notifications").textContent = notificationsOn ? "On" : "Off";
     };
 
   }
-
-  //TODO:: Validate the postal code with the Regular Expression,
-  //TODO:: Display an error if not valid
-  let location = $("#setting_location").value;
+  let location = $("#location").value;
 
   if(postalRegEx.test(location)){
-    // if the postal code is valid this code will run,
+    $("#setting_location").textContent = location;
   } else{
-    // add your logic here if the postal code is not valid
+    $("#setting_location").textContent = "Please set a properly 'X0X 0X0' formatted address."
   }
 
-
+  let temp = $("#temperature").value;
+  
+  if (typeof temp == "string"){
+    $("#setting_temperature").textContent = temp;
+    if (temp > 30) {
+      $("#setting_temperature").textContent = "The maximum temperature is 30, please choose a lower temperature";
+    } else if (temp < 5) {
+      $("#setting_temperature").textContent = "The minimum temperature is 5, please choose a higher temperature";
+    }
+  } else {
+    $("#setting_temperature").textContent = "This is not a number, please select a valid number for your temperature";
+  }
   //TODO:: Validate the temperature by checking the range and if it's a number
   //TODO:: Display an error if not valid
 
